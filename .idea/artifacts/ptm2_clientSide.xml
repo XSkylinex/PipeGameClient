@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="ptm2_clientSide">
+    <output-path>$PROJECT_DIR$/out/artifacts/ptm2_clientSide</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="view.Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="ptm2_clientSide.jar">
+        <element id="module-output" name="ptm2_clientSide" />
+      </element>
+    </root>
+  </artifact>
+</component>
