@@ -2,8 +2,12 @@ package view;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MazeDisplayer extends Canvas {
@@ -39,6 +43,54 @@ public class MazeDisplayer extends Canvas {
             double w = width / max.length();
             double h = high / mazeData.size();
             char letter;
+            Image Limg = null;
+            try {
+                Limg = new Image(new FileInputStream("./resources/L.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Image Iimg = null;
+            try {
+                Iimg = new Image(new FileInputStream("./resources/I.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Image img1 = null;
+            try {
+                img1 = new Image(new FileInputStream("./resources/-.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Image img7 = null;
+            try {
+                img7 = new Image(new FileInputStream("./resources/7.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Image imgJ = null;
+            try {
+                imgJ = new Image(new FileInputStream("./resources/7.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Image imgF = null;
+            try {
+                imgF = new Image(new FileInputStream("./resources/F.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Image imgstart = null;
+            try {
+                imgstart = new Image(new FileInputStream("./resources/S.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Image imgend = null;
+            try {
+                imgend = new Image(new FileInputStream("./resources/end.jpg"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
             GraphicsContext graphicsContext = getGraphicsContext2D();
             graphicsContext.clearRect(0,0,width,high);
             for (int i = 0;i<mazeData.size();i++)
@@ -48,23 +100,35 @@ public class MazeDisplayer extends Canvas {
                     letter = mazeData.get(i).charAt(j);
                     if(letter=='|')
                     {
-                        graphicsContext.fillRect(j*w,i*h,w,h);
+                        graphicsContext.drawImage(Iimg,j*w,i*h,w,h);
                     }
                     if(letter=='-')
                     {
-                        graphicsContext.fillRect(j*w,i*h,w,h);
+                        graphicsContext.drawImage(img1,j*w,i*h,w,h);
                     }
                     if(letter=='L')
                     {
-                        graphicsContext.fillRect(j*w,i*h,w,h);
+                        graphicsContext.drawImage(Limg,j*w,i*h,w,h);
                     }
-                    if(letter=='S')
+                    if(letter=='7')
                     {
-                        graphicsContext.fillRect(j*w,i*h,w,h);
+                        graphicsContext.drawImage(img7,j*w,i*h,w,h);
                     }
-                    if(letter=='G')
+                    if(letter=='J')
                     {
-                        graphicsContext.fillRect(j*w,i*h,w,h);
+                        graphicsContext.drawImage(imgJ,j*w,i*h,w,h);
+                    }
+                    if(letter=='F')
+                    {
+                        graphicsContext.drawImage(imgF,j*w,i*h,w,h);
+                    }
+                    if(letter=='s')
+                    {
+                        graphicsContext.drawImage(imgstart,j*w,i*h,w,h);
+                    }
+                    if(letter=='g')
+                    {
+                        graphicsContext.drawImage(imgend,j*w,i*h,w,h);
                     }
                 }
             }
