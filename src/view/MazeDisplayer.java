@@ -1,5 +1,6 @@
 package view;
 
+import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -16,11 +17,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
-public class MazeDisplayer extends Canvas {
+public class MazeDisplayer extends Canvas{
     private ArrayList<String> mazeData;
-    public String max = "";
-
-
+    private String max = "";
+    private String themeName ="1";
 
 
     public void switchCell(int i, int j, int times) {
@@ -100,42 +100,50 @@ public class MazeDisplayer extends Canvas {
             double w = width / max.length();
             double h = high / mazeData.size();
             char letter;
-            Image Limg = null;
+
+            Image LimL = null;
             try {
-                Limg = new Image(new FileInputStream("./resources/L.png"));
+                LimL = new Image(new FileInputStream("./resources/Theme_"+themeName+"/L.png"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            Image Iimg = null;
+
+            Image IimI = null;
             try {
-                Iimg = new Image(new FileInputStream("./resources/I.png"));
+                IimI = new Image(new FileInputStream("./resources/Theme_"+themeName+"/I.png"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+
             Image img1 = null;
             try {
-                img1 = new Image(new FileInputStream("./resources/-.png"));
+                img1 = new Image(new FileInputStream("./resources/Theme_"+themeName+"/-.png"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+
+
             Image img7 = null;
             try {
-                img7 = new Image(new FileInputStream("./resources/7.png"));
+                img7 = new Image(new FileInputStream("./resources/Theme_"+themeName+"/7.png"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+
             Image imgJ = null;
             try {
-                imgJ = new Image(new FileInputStream("./resources/7.png"));
+                imgJ = new Image(new FileInputStream("./resources/Theme_"+themeName+"/J.png"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+
             Image imgF = null;
             try {
-                imgF = new Image(new FileInputStream("./resources/F.png"));
+                imgF = new Image(new FileInputStream("./resources/Theme_"+themeName+"/F.png"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+
             Image imgstart = null;
             try {
                 imgstart = new Image(new FileInputStream("./resources/S.png"));
@@ -157,15 +165,15 @@ public class MazeDisplayer extends Canvas {
                     letter = mazeData.get(i).charAt(j);
                     if(letter=='|')
                     {
-                        graphicsContext.drawImage(Iimg,j*w,i*h,w,h);
+                        graphicsContext.drawImage(img1,j*w,i*h,w,h);
                     }
                     if(letter=='-')
                     {
-                        graphicsContext.drawImage(img1,j*w,i*h,w,h);
+                        graphicsContext.drawImage(IimI,j*w,i*h,w,h);
                     }
                     if(letter=='L')
                     {
-                        graphicsContext.drawImage(Limg,j*w,i*h,w,h);
+                        graphicsContext.drawImage(LimL,j*w,i*h,w,h);
                     }
                     if(letter=='7')
                     {
@@ -198,6 +206,8 @@ public class MazeDisplayer extends Canvas {
         return mazeData;
     }
 
-
-
+    public void setThemeName(String themeName) {
+        this.themeName = themeName;
+        redraw();
+    }
 }
