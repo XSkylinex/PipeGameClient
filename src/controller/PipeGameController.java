@@ -18,9 +18,9 @@ public class PipeGameController implements Observer {
 
     }
 
-    public void solve() {
-        model.solve();
-    }
+//    public void solve() {
+//        model.solve();
+//    }
 
     @Override
     public void update(Observable o, Object arg) {

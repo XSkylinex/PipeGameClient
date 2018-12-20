@@ -20,15 +20,13 @@ import java.util.Scanner;
 public class MainWindowController extends Observable implements Initializable {
     PipeGameController controller;
 
-    private String[][] mazeData;
-
+    public ArrayList<String> mazeData = new ArrayList<String>();
     @FXML
     MazeDisplayer mazeDisplayer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.controller = new PipeGameController(new PipeGameModel(), this);
-
         mazeDisplayer.setMazeData(mazeData);
         mazeDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> mazeDisplayer.requestFocus());
         mazeDisplayer.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -61,34 +59,40 @@ public class MainWindowController extends Observable implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Level");
         fileChooser.setInitialDirectory(new File("./resources"));
-        File choose = fileChooser.showOpenDialog(null);
-        System.out.println(choose.getPath());
-        if (choose != null) {
-            mazeData = readMaze(choose.getPath());
+        File Maze = fileChooser.showOpenDialog(null);
+        if (Maze != null) {
+           mazeData = readMaze(Maze);
+            mazeDisplayer.setMazeData(mazeData);
         } else {
             System.out.println("Not Found");
 
         }
+
     }
 
-    public String[][] readMaze(String fileName) throws IOException {
-        String[][] a = null;
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
+    public ArrayList<String> readMaze(File Maze) throws IOException {
+        BufferedReader buff = null;
         try {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
+            buff = new BufferedReader(new FileReader(Maze));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String streader = null;
+        ArrayList<String> gameboard = new ArrayList<>();
+        try {
+            streader = buff.readLine();
+            while (streader!=null)
+            {
+                gameboard.add(streader);
+                streader = buff.readLine();
             }
-            String everything = sb.toString();
+            gameboard.add("done");
+            return  gameboard;
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            br.close();
+            return null;
         }
-        return a;
     }
+
+
 }
