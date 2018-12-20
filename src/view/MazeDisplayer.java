@@ -5,11 +5,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 public class MazeDisplayer extends Canvas {
-    private int[][] mazeData;
+    private String[][] mazeData;
     private int cCol;
     private int cRow;
 
-    public void setMazeData(int[][] mazeData) {
+    public void setMazeData(String[][] mazeData) {
         this.mazeData = mazeData;
         cCol = 0;
         cRow = 0;
@@ -33,7 +33,7 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.clearRect(0,0,width,high);
             for (int i = 0; i < mazeData.length; i++) {
                 for (int j = 0; j < mazeData[i].length; j++) {
-                    if (mazeData[i][j] != 0) {
+                    if (mazeData[i][j] != "0") {
                         graphicsContext.fillRect(j * w, i * h, w, h);
 
                     }
