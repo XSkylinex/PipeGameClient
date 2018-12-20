@@ -4,33 +4,89 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JPanel;
 
 public class MazeDisplayer extends Canvas {
     private ArrayList<String> mazeData;
-    private int cCol;
-    private int cRow;
+    public String max = "";
+
+
+
+
+    public void switchCell(int i, int j, int times) {
+        int t = 0;
+        while (t < times) {
+            switch (this.mazeData.get(i).charAt(j)) {
+                case '-': {
+                   // this.mazeData.get(i).charAt(j) = '|';
+                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
+                    clickmousenow[j] = '|';
+                    mazeData.add(j,clickmousenow.toString());
+                    break;
+                }
+                case '|': {
+                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
+                    clickmousenow[j] = '-';
+                    mazeData.add(j,clickmousenow.toString());
+                    break;
+                }
+                case '7': {
+                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
+                    clickmousenow[j] = 'J';
+                    mazeData.add(j,clickmousenow.toString());
+                    break;
+                }
+                case 'J': {
+                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
+                    clickmousenow[j] = 'L';
+                    mazeData.add(j,clickmousenow.toString());
+                    break;
+                }
+                case 'L': {
+                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
+                    clickmousenow[j] = 'F';
+                    mazeData.add(j,clickmousenow.toString());
+                    break;
+                }
+                case 'F': {
+                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
+                    clickmousenow[j] = '7';
+                    mazeData.add(j,clickmousenow.toString());
+                    break;                }
+            }
+            this.redraw();
+            if (t < times - 1) {
+                try {
+                    Thread.sleep(100L);
+                }
+                catch (InterruptedException interruptedException) {
+                    // empty catch block
+                }
+            }
+            ++t;
+        }
+    }
 
     public void setMazeData(ArrayList<String> mazeData) {
         this.mazeData = mazeData;
-        cCol = 0;
-        cRow = 0;
         redraw();
     }
 
-    public void setPlayerPosition(int row,int col){
-        cCol = col;
-        cRow = row;
-        redraw();
-    }
+
 
     public void redraw(){
         if(mazeData != null) {
-            String max = "";
+
             for (int i = 0;i<mazeData.size();i++)
             {
                 if(mazeData.get(i).length()>max.length())
@@ -38,6 +94,7 @@ public class MazeDisplayer extends Canvas {
                     max=mazeData.get(i);
                 }
             }
+
             double width = getWidth();
             double high = getHeight();
             double w = width / max.length();
@@ -133,7 +190,6 @@ public class MazeDisplayer extends Canvas {
                 }
             }
             graphicsContext.setFill(Color.RED);
-            graphicsContext.fillOval(cCol * w, cRow * h, w, h);
 
         }
     }
@@ -142,12 +198,6 @@ public class MazeDisplayer extends Canvas {
         return mazeData;
     }
 
-    public int getcCol() {
-        return cCol;
-    }
 
-    public int getcRow() {
-        return cRow;
-    }
 
 }
