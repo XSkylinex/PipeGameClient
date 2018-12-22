@@ -3,11 +3,9 @@ package view;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MazeDisplayer extends Canvas{
     private ArrayList<String> mazeData;
@@ -16,47 +14,38 @@ public class MazeDisplayer extends Canvas{
 
 
     public void switchCell(int i, int j, int times) {
-        int t = 0;
+        int t = -1;
         String fix;
-        char test = this.mazeData.get(i).charAt(j);
+        char letter = this.mazeData.get(i).charAt(j);
         while (t < times) {
-            System.out.println(test);
-            switch (test) {
+            switch (letter) {
                 case '-': {
                     fix = dvirStringFix(i,j,'|');
-                    System.out.println(fix);
                     mazeData.set(i,fix);
-                   // System.out.println(clickmousenow);
-
                     break;
                 }
                 case '|': {
                     fix = dvirStringFix(i,j,'-');
-                    System.out.println(fix);
                     mazeData.set(i,fix);
                     break;
                 }
                 case '7': {
                     fix = dvirStringFix(i,j,'J');
-                    System.out.println(fix);
                     mazeData.set(i,fix);
                     break;
                 }
                 case 'J': {
                     fix = dvirStringFix(i,j,'L');
-                    System.out.println(fix);
                     mazeData.set(i,fix);
                     break;
                 }
                 case 'L': {
                     fix = dvirStringFix(i,j,'F');
-                    System.out.println(fix);
                     mazeData.set(i,fix);
                     break;
                 }
                 case 'F': {
                     fix = dvirStringFix(i,j,'7');
-                    System.out.println(fix);
                     mazeData.set(i,fix);
                     break;                }
             }
@@ -211,4 +200,5 @@ public class MazeDisplayer extends Canvas{
         this.themeName = themeName;
         redraw();
     }
+
 }
