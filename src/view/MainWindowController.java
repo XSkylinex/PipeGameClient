@@ -2,40 +2,47 @@ package view;
 
 import controller.PipeGameController;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import model.PipeGameModel;
 
-import java.awt.event.MouseListener;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
-
-public class MainWindowController extends Observable implements Initializable {
+public class MainWindowController extends Observable implements Initializable{
     PipeGameController controller;
     public String max = "";
     public ArrayList<String> mazeData = new ArrayList<String>();
-
+    private int time = 1;
     @FXML
     MazeDisplayer mazeDisplayer;
 
+    private long map(long x, long in_min, long in_max, long out_min, long out_max)
+    {
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.controller = new PipeGameController(new PipeGameModel(), this);
+
         mazeDisplayer.setMazeData(mazeData);
-        mazeDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> mazeDisplayer.requestFocus());
+        mazeDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED,(e)->{
+            mazeDisplayer.requestFocus();
+            int i = (int)map((long)e.getY(), 0, (long)mazeDisplayer.getHeight(), 0, (long)mazeDisplayer.getMazeData().size());
+            System.out.println(i);
+            int j = (int)map((long)e.getX(), 0, (long)mazeDisplayer.getWidth(), 0, (long) mazeDisplayer.getMazeData().get(0).length());
+            System.out.println(j);
+            mazeDisplayer.switchCell(i,j,time);
+
+        });
+
     }
 
     public void solve() {
@@ -43,7 +50,7 @@ public class MainWindowController extends Observable implements Initializable {
 
     }
 
-    public void OpenFile() throws IOException {
+    public void OpenFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Level");
         fileChooser.setInitialDirectory(new File("./resources"));
@@ -63,7 +70,7 @@ public class MainWindowController extends Observable implements Initializable {
 
     }
 
-    public ArrayList<String> readMaze(File Maze) throws IOException {
+    public ArrayList<String> readMaze(File Maze){
         BufferedReader buff = null;
         try {
             buff = new BufferedReader(new FileReader(Maze));
@@ -78,16 +85,19 @@ public class MainWindowController extends Observable implements Initializable {
                 gameboard.add(streader);
                 streader = buff.readLine();
             }
-            gameboard.add("done");
             return gameboard;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
+
     public void chooseTheme(ActionEvent event){
         String text = ((MenuItem)event.getSource()).getText();
         System.out.println(text);
         mazeDisplayer.setThemeName(text.substring(6));
     }
+
+
+
 }

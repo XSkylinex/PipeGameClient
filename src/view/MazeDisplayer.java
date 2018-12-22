@@ -1,21 +1,13 @@
 package view;
 
-import javafx.fxml.FXML;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.JPanel;
+import java.util.Arrays;
 
 public class MazeDisplayer extends Canvas{
     private ArrayList<String> mazeData;
@@ -25,43 +17,47 @@ public class MazeDisplayer extends Canvas{
 
     public void switchCell(int i, int j, int times) {
         int t = 0;
+        String fix;
+        char test = this.mazeData.get(i).charAt(j);
         while (t < times) {
-            switch (this.mazeData.get(i).charAt(j)) {
+            System.out.println(test);
+            switch (test) {
                 case '-': {
-                   // this.mazeData.get(i).charAt(j) = '|';
-                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
-                    clickmousenow[j] = '|';
-                    mazeData.add(j,clickmousenow.toString());
+                    fix = dvirStringFix(i,j,'|');
+                    System.out.println(fix);
+                    mazeData.set(i,fix);
+                   // System.out.println(clickmousenow);
+
                     break;
                 }
                 case '|': {
-                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
-                    clickmousenow[j] = '-';
-                    mazeData.add(j,clickmousenow.toString());
+                    fix = dvirStringFix(i,j,'-');
+                    System.out.println(fix);
+                    mazeData.set(i,fix);
                     break;
                 }
                 case '7': {
-                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
-                    clickmousenow[j] = 'J';
-                    mazeData.add(j,clickmousenow.toString());
+                    fix = dvirStringFix(i,j,'J');
+                    System.out.println(fix);
+                    mazeData.set(i,fix);
                     break;
                 }
                 case 'J': {
-                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
-                    clickmousenow[j] = 'L';
-                    mazeData.add(j,clickmousenow.toString());
+                    fix = dvirStringFix(i,j,'L');
+                    System.out.println(fix);
+                    mazeData.set(i,fix);
                     break;
                 }
                 case 'L': {
-                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
-                    clickmousenow[j] = 'F';
-                    mazeData.add(j,clickmousenow.toString());
+                    fix = dvirStringFix(i,j,'F');
+                    System.out.println(fix);
+                    mazeData.set(i,fix);
                     break;
                 }
                 case 'F': {
-                    char[] clickmousenow = this.mazeData.get(i).toCharArray();
-                    clickmousenow[j] = '7';
-                    mazeData.add(j,clickmousenow.toString());
+                    fix = dvirStringFix(i,j,'7');
+                    System.out.println(fix);
+                    mazeData.set(i,fix);
                     break;                }
             }
             this.redraw();
@@ -77,12 +73,16 @@ public class MazeDisplayer extends Canvas{
         }
     }
 
+    private String dvirStringFix(int i,int j,char letter){
+        StringBuilder myName = new StringBuilder(mazeData.get(i));
+        myName.setCharAt(j, letter);
+        return myName.toString();
+    }
+
     public void setMazeData(ArrayList<String> mazeData) {
         this.mazeData = mazeData;
         redraw();
     }
-
-
 
     public void redraw(){
         if(mazeData != null) {
@@ -163,11 +163,11 @@ public class MazeDisplayer extends Canvas{
                 for (int j = 0;j<mazeData.get(i).length();j++)
                 {
                     letter = mazeData.get(i).charAt(j);
-                    if(letter=='|')
+                    if(letter=='-')
                     {
                         graphicsContext.drawImage(img1,j*w,i*h,w,h);
                     }
-                    if(letter=='-')
+                    if(letter=='|')
                     {
                         graphicsContext.drawImage(IimI,j*w,i*h,w,h);
                     }
@@ -197,7 +197,8 @@ public class MazeDisplayer extends Canvas{
                     }
                 }
             }
-            graphicsContext.setFill(Color.RED);
+            System.out.println(mazeData.toString());
+            //graphicsContext.setFill(Color.RED);
 
         }
     }
