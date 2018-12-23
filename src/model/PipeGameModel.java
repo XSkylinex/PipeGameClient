@@ -3,19 +3,23 @@ package model;
 import controller.PipeGameController;
 import view.MazeDisplayer;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Observable;
 
 public class PipeGameModel extends Observable {
     public PipeGameController controller;
 
     // connection method....
+    public void serverConnection(String ip, int port) throws IOException {
+        System.out.println("Creating socket to '" + ip + "' on port " + port);
+            setChanged();
+            notifyObservers("update");
+
+    }
 
     public static void solve(String ip, int port, MazeDisplayer board) {
 //        try {
@@ -48,8 +52,8 @@ public class PipeGameModel extends Observable {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-
-        // when we the sol from sever we notify to our observer.
-       // this.notifyObservers("solution....");
+//
+//        // when we the sol from sever we notify to our observer.
+//        this.notifyObservers("solution....");
     }
 }

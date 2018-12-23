@@ -9,8 +9,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import model.PipeGameModel;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 import java.io.*;
 import java.net.URL;
@@ -23,7 +21,7 @@ public class MainWindowController extends Observable implements Initializable{
     public String max = "";
     public ArrayList<String> mazeData = new ArrayList<String>();
     private int time = 1;
-    public int points = 0;
+    private int points = 0;
 
     @FXML
     MazeDisplayer mazeDisplayer;
@@ -39,7 +37,7 @@ public class MainWindowController extends Observable implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.controller = new PipeGameController(new PipeGameModel(), this);
-        this.score.setText("Moves: " + points);
+        this.score.setText("Score: " + points);
 
         mazeDisplayer.setMazeData(mazeData);
         mazeDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED,(e)->{
@@ -50,13 +48,7 @@ public class MainWindowController extends Observable implements Initializable{
             System.out.println(j);
             mazeDisplayer.switchCell(i,j,time);
             points++;
-            if(mazeDisplayer.flag==1)
-            {
-                points--;
-            }
-            mazeDisplayer.flag=0;
-            this.score.setText("Moves: " + points);
-
+            this.score.setText("Score: " + points);
         });
 
     }
