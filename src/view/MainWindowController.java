@@ -54,7 +54,7 @@ public class MainWindowController extends Observable implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.controller = new PipeGameController(new PipeGameModel(), this);
-        this.score.setText("Score: " + points);
+        this.score.setText("Moves: " + points);
 
         UpdateConnection();
         mazeDisplayer.setMazeData(mazeData);
@@ -66,7 +66,13 @@ public class MainWindowController extends Observable implements Initializable{
             System.out.println(j);
             mazeDisplayer.switchCell(i,j,time);
             points++;
-            this.score.setText("Score: " + points);
+            if(mazeDisplayer.flag==1)
+            {
+                points--;
+            }
+            mazeDisplayer.flag=0;
+            this.score.setText("Moves: " + points);
+
         });
 
     }
