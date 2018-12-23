@@ -88,9 +88,9 @@ public class MazeDisplayer extends Canvas{
     }
 
     private String dvirStringFix(int i,int j,char letter){
-        StringBuilder myName = new StringBuilder(mazeData.get(i));
-        myName.setCharAt(j, letter);
-        return myName.toString();
+        StringBuilder dvirWhy = new StringBuilder(mazeData.get(i));
+        dvirWhy.setCharAt(j, letter);
+        return dvirWhy.toString();
     }
 
     public void setMazeData(ArrayList<String> mazeData) {
