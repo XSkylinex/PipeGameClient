@@ -3,15 +3,34 @@ package view;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MazeDisplayer extends Canvas{
     private ArrayList<String> mazeData;
     private String max = "";
     private String themeName ="1";
+    public int flag =0;
 
+//    public static void playmusic()
+//    {
+//        InputStream music;
+//        try {
+//            music = new FileInputStream("./resources/pokemon.mp3");
+//            AudioStream audio = new AudioStream(music);
+//            AudioPlayer.player.start(audio);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void switchCell(int i, int j, int times) {
         int t = -1;
@@ -48,6 +67,12 @@ public class MazeDisplayer extends Canvas{
                     fix = dvirStringFix(i,j,'7');
                     mazeData.set(i,fix);
                     break;                }
+                case 'g': {
+                    flag = 1;
+                }
+                case 's': {
+                    flag = 1;
+                }
             }
             this.redraw();
             if (t < times - 1) {
