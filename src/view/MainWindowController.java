@@ -4,8 +4,10 @@ import controller.PipeGameController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import model.PipeGameModel;
@@ -22,6 +24,7 @@ public class MainWindowController extends Observable implements Initializable{
     public ArrayList<String> mazeData = new ArrayList<String>();
     private int time = 1;
     private int points = 0;
+    private String connection = "disconnected";
 
     @FXML
     MazeDisplayer mazeDisplayer;
@@ -29,6 +32,20 @@ public class MainWindowController extends Observable implements Initializable{
     @FXML
     Label score;
 
+    @FXML
+    TextField _ip;
+
+
+    @FXML
+    TextField _port;
+
+    @FXML
+    Label _connect;
+
+    void UpdateConnection()
+    {
+        this._connect.setText(String.format("Connection Status: %s", connection));
+    }
 
     private long map(long x, long in_min, long in_max, long out_min, long out_max) {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -39,6 +56,7 @@ public class MainWindowController extends Observable implements Initializable{
         this.controller = new PipeGameController(new PipeGameModel(), this);
         this.score.setText("Score: " + points);
 
+        UpdateConnection();
         mazeDisplayer.setMazeData(mazeData);
         mazeDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED,(e)->{
             mazeDisplayer.requestFocus();
@@ -106,5 +124,22 @@ public class MainWindowController extends Observable implements Initializable{
         mazeDisplayer.setThemeName(text.substring(6));
     }
 
+    public String getIp() {
+        return _ip.getText();
+    }
+
+    public String getPort() {
+        return _port.getText();
+    }
+
+    public void setConnect(String connect){
+        this.connection=connect;
+        UpdateConnection();
+    }
+
+    public void connect(){
+        setChanged();
+        notifyObservers("Connect");
+    }
 
 }
