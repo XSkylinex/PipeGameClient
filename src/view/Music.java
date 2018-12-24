@@ -22,8 +22,9 @@ public class Music{
     }
 
     public void play(){
-        clip.start();
-        status = "play";
+            clip.start();
+            status = "play";
+
     }
 
     public void stop(){

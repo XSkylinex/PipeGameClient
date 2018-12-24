@@ -36,7 +36,8 @@ public class MainWindowController extends Observable implements Initializable {
     private int time = 1;
     private int points = 0;
     private String connection = "disconnected";
-    Music musicPokemon;
+    private Music musicPokemon;
+    private int soundSafe = 0;
 
     @FXML
     MazeDisplayer mazeDisplayer;
@@ -170,13 +171,25 @@ public class MainWindowController extends Observable implements Initializable {
     }
 
    public void SoundOn() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-       musicPokemon.play();
-        musicPokemon.resetAudioStream();
+        if(soundSafe == 1) {
+            musicPokemon.play();
+            musicPokemon.resetAudioStream();
+            soundSafe = 0;
+        }else {
+            System.out.println("Music still playing in the background");
+        }
 
-    }
+
+
+   }
 
     public void SoundOff(){
-        musicPokemon.stop();
+        if(soundSafe == 0) {
+            musicPokemon.stop();
+            soundSafe = 1;
+        }else{
+            System.out.println("Music not playing in the background");
+        }
     }
 
     public void gameSave(){
