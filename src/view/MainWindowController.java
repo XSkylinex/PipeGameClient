@@ -165,4 +165,18 @@ public class MainWindowController extends Observable implements Initializable {
     public void SoundOff(){
         musicPokemon.stop();
     }
+
+    public void gameSave(){
+        try {
+            //Whatever the file path is.
+            File statText = new File("./resources/Saves/GameSave.txt");
+            FileOutputStream is = new FileOutputStream(statText);
+            OutputStreamWriter osw = new OutputStreamWriter(is);
+            Writer w = new BufferedWriter(osw);
+            w.write(mazeData.toString());
+            w.close();
+        } catch (IOException e) {
+            System.err.println("Problem writing to the file statsTest.txt");
+        }
+    }
 }
