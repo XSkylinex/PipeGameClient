@@ -162,7 +162,7 @@ public class MainWindowController extends Observable implements Initializable {
 
     }
 
-    public void SoundOff() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void SoundOff(){
         musicPokemon.stop();
     }
 }

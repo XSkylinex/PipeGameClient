@@ -15,6 +15,7 @@ public class PipeGameModel extends Observable {
 
     // connection method....
     public void serverConnection(String ip, int port) throws IOException {
+
         System.out.println("Creating socket to '" + ip + "' on port " + port);
             setChanged();
             notifyObservers("update");
