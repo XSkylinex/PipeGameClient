@@ -167,16 +167,28 @@ public class MainWindowController extends Observable implements Initializable {
     }
 
     public void gameSave(){
+//        try {
+//            //Whatever the file path is.
+//            File statText = new File("./resources/Saves/GameSave.txt");
+//            FileOutputStream is = new FileOutputStream(statText);
+//            OutputStreamWriter osw = new OutputStreamWriter(is);
+//            Writer w = new BufferedWriter(osw);
+//            w.write(mazeData);
+//            w.close();
+//        } catch (IOException e) {
+//            System.err.println("Problem writing to the file statsTest.txt");
+//        }
         try {
-            //Whatever the file path is.
-            File statText = new File("./resources/Saves/GameSave.txt");
-            FileOutputStream is = new FileOutputStream(statText);
-            OutputStreamWriter osw = new OutputStreamWriter(is);
-            Writer w = new BufferedWriter(osw);
-            w.write(mazeData.toString());
-            w.close();
-        } catch (IOException e) {
-            System.err.println("Problem writing to the file statsTest.txt");
+            PrintWriter write = new PrintWriter("./resources/Saves/GameSave.txt");
+            for(int i =0;i<mazeData.size();i++)
+            {
+                write.println(mazeData.get(i));
+
+            }
+            write.flush();
+            write.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
