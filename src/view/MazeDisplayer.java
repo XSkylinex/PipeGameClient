@@ -154,6 +154,10 @@ public class MazeDisplayer extends Canvas{
             }
             GraphicsContext graphicsContext = getGraphicsContext2D();
             graphicsContext.clearRect(0,0,width,high);
+
+            // draw background
+            graphicsContext.drawImage(imgend, 0, 0, getWidth(), getHeight());
+
             for (int i = 0;i<mazeData.size();i++)
             {
                 for (int j = 0;j<mazeData.get(i).length();j++)

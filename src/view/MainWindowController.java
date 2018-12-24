@@ -1,7 +1,14 @@
 package view;
 
 import controller.PipeGameController;
+import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -15,9 +22,12 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.ResourceBundle;
+import java.sql.Time;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class MainWindowController extends Observable implements Initializable {
     PipeGameController controller;
@@ -44,6 +54,11 @@ public class MainWindowController extends Observable implements Initializable {
     @FXML
     Label _connect;
 
+    @FXML
+    Label _time;
+
+
+
     void UpdateConnection() {
         this._connect.setText(String.format("Connection Status: %s", connection));
     }
@@ -55,6 +70,7 @@ public class MainWindowController extends Observable implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.controller = new PipeGameController(new PipeGameModel(), this);
+        timer();
         try {
             musicPokemon = new Music();
         } catch (UnsupportedAudioFileException e) {
@@ -80,7 +96,6 @@ public class MainWindowController extends Observable implements Initializable {
             }
             mazeDisplayer.flag = 0;
             this.score.setText("Moves: " + points);
-
         });
 
     }
@@ -117,7 +132,7 @@ public class MainWindowController extends Observable implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String streader = null;
+        String streader;
         ArrayList<String> gameboard = new ArrayList<>();
         try {
             streader = buff.readLine();
@@ -167,28 +182,47 @@ public class MainWindowController extends Observable implements Initializable {
     }
 
     public void gameSave(){
-//        try {
-//            //Whatever the file path is.
-//            File statText = new File("./resources/Saves/GameSave.txt");
-//            FileOutputStream is = new FileOutputStream(statText);
-//            OutputStreamWriter osw = new OutputStreamWriter(is);
-//            Writer w = new BufferedWriter(osw);
-//            w.write(mazeData);
-//            w.close();
-//        } catch (IOException e) {
-//            System.err.println("Problem writing to the file statsTest.txt");
-//        }
         try {
             PrintWriter write = new PrintWriter("./resources/Saves/GameSave.txt");
-            for(int i =0;i<mazeData.size();i++)
-            {
+            for(int i =0;i<mazeData.size();i++){
                 write.println(mazeData.get(i));
 
             }
             write.flush();
             write.close();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e){
             e.printStackTrace();
         }
     }
+
+    public void timer(){
+        long start = System.currentTimeMillis();
+//        String[] s = "34:23:54".split(":");
+//        long milliseconds = TimeUnit.SECONDS.toMillis(
+//                TimeUnit.HOURS.toSeconds(Integer.parseInt(s[0])) +
+//                        TimeUnit.MINUTES.toSeconds(Integer.parseInt(s[1]))
+//        );
+//
+//        long start = milliseconds;
+        Label timeLabel = this._time;
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                long n = System.currentTimeMillis();
+                long millis =  ((n - start));
+
+                String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+                        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                        TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+                timeLabel.setText("Time: "+ hms);
+
+
+
+            }
+        };
+
+        timer.start();
+    }
+
 }
