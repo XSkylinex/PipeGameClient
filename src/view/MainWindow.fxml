@@ -89,7 +89,8 @@
                      </items>
                   </SplitPane>
                   <Button mnemonicParsing="false" onAction="#connect" text="Connect!" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" onAction="#Sound" text="Music off" GridPane.rowIndex="3" />
+                  <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#SoundOff" text="Music Off" textAlignment="RIGHT" GridPane.rowIndex="3" />
+                  <Button layoutX="10.0" layoutY="70.0" mnemonicParsing="false" onAction="#SoundOn" text="Music On" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </bottom>

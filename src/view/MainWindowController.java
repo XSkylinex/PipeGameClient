@@ -10,11 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import model.PipeGameModel;
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,8 +26,7 @@ public class MainWindowController extends Observable implements Initializable {
     private int time = 1;
     private int points = 0;
     private String connection = "disconnected";
-    private final String pokemonSound = "./resources/Poekmon_opening.WAV";
-
+    Music musicPokemon;
 
     @FXML
     MazeDisplayer mazeDisplayer;
@@ -58,6 +55,15 @@ public class MainWindowController extends Observable implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.controller = new PipeGameController(new PipeGameModel(), this);
+        try {
+            musicPokemon = new Music();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
         this.score.setText("Moves: " + points);
         UpdateConnection();
         mazeDisplayer.setMazeData(mazeData);
@@ -150,34 +156,13 @@ public class MainWindowController extends Observable implements Initializable {
         notifyObservers("Connect");
     }
 
-    public void Sound() {
-        // Media mp3MusicFile = new Media(getClass().getResource("./resources/Poekmon_opening.mp3").toExternalForm());
-        // TODO Auto-generated method stub
+   public void SoundOn() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+       musicPokemon.play();
+        musicPokemon.resetAudioStream();
 
-//        Media media = new Media(new File(pokemonSound).toURI().toString());
-//        //Instantiating MediaPlayer class
-//        MediaPlayer mediaPlayer = new MediaPlayer(media);
-//        mediaPlayer.play();
+    }
 
-
-        AudioPlayer MGP = AudioPlayer.player;
-        AudioStream BGM;
-        AudioData MD;
-
-        ContinuousAudioDataStream loop = null;
-
-        try {
-            InputStream test = new FileInputStream(pokemonSound);
-            BGM = new AudioStream(test);
-            AudioPlayer.player.start(BGM);
-            //MD = BGM.getData();
-            //loop = new ContinuousAudioDataStream(MD);
-
-        } catch (FileNotFoundException e) {
-            System.out.print(e.toString());
-        } catch (IOException error) {
-            System.out.print(error.toString());
-        }
-        MGP.start(loop);
+    public void SoundOff() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        musicPokemon.stop();
     }
 }
