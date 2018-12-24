@@ -47,7 +47,6 @@ public class MainWindowController extends Observable implements Initializable {
     @FXML
     TextField _ip;
 
-
     @FXML
     TextField _port;
 
@@ -56,7 +55,6 @@ public class MainWindowController extends Observable implements Initializable {
 
     @FXML
     Label _time;
-
 
 
     void UpdateConnection() {
@@ -197,13 +195,6 @@ public class MainWindowController extends Observable implements Initializable {
 
     public void timer(){
         long start = System.currentTimeMillis();
-//        String[] s = "34:23:54".split(":");
-//        long milliseconds = TimeUnit.SECONDS.toMillis(
-//                TimeUnit.HOURS.toSeconds(Integer.parseInt(s[0])) +
-//                        TimeUnit.MINUTES.toSeconds(Integer.parseInt(s[1]))
-//        );
-//
-//        long start = milliseconds;
         Label timeLabel = this._time;
 
         AnimationTimer timer = new AnimationTimer() {
@@ -223,6 +214,16 @@ public class MainWindowController extends Observable implements Initializable {
         };
 
         timer.start();
+
+
+        //Dvir this is for you!
+//        String[] s = "34:23:54".split(":");
+//        long milliseconds = TimeUnit.SECONDS.toMillis(
+//                TimeUnit.HOURS.toSeconds(Integer.parseInt(s[0])) +
+//                        TimeUnit.MINUTES.toSeconds(Integer.parseInt(s[1]))
+//        );
+//
+//        long start = milliseconds;
     }
 
 }

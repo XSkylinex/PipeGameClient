@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
-        primaryStage.setTitle("Pipe Game v0.6");
+        primaryStage.setTitle("Pipe Game v0.8");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
