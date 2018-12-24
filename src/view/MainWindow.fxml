@@ -61,13 +61,13 @@
             </VBox>
          </left>
          <center>
-             <MazeDisplayer fx:id="mazeDisplayer" height="458.0" width="575.0" BorderPane.alignment="CENTER" />
+             <MazeDisplayer fx:id="mazeDisplayer" height="513.0" width="575.0" BorderPane.alignment="CENTER" />
          </center>
          <bottom>
             <GridPane prefHeight="121.0" prefWidth="687.0" BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="336.0" minWidth="10.0" prefWidth="239.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="569.0" minWidth="10.0" prefWidth="448.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="336.0" minWidth="10.0" prefWidth="265.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="569.0" minWidth="10.0" prefWidth="422.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
@@ -76,7 +76,7 @@
                   <RowConstraints maxHeight="72.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="_connect" text="Connection: %s" />
+                  <Label fx:id="_connect" text="Connection: %s" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <SplitPane dividerPositions="0.08520179372197309" prefHeight="200.0" prefWidth="343.0" GridPane.columnIndex="1">
                      <items>
                         <Label prefHeight="27.0" prefWidth="55.0" text="Ip" />
@@ -89,14 +89,18 @@
                         <TextField fx:id="_port" prefHeight="41.0" prefWidth="363.0" />
                      </items>
                   </SplitPane>
-                  <Button mnemonicParsing="false" onAction="#connect" text="Connect!" GridPane.rowIndex="2" />
-                  <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#SoundOff" text="Music Off" textAlignment="RIGHT" GridPane.rowIndex="3" />
-                  <Button layoutX="10.0" layoutY="70.0" mnemonicParsing="false" onAction="#SoundOn" text="Music On" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label fx:id="_time" prefHeight="21.0" prefWidth="234.0" text="Timer :" textFill="#ab2772" GridPane.rowIndex="1">
+                  <Button mnemonicParsing="false" onAction="#connect" text="Connect!" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="_time" prefHeight="21.0" prefWidth="234.0" text="Timer :" textFill="#ab2772">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
+                  <SplitPane dividerPositions="0.311787072243346" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                     <items>
+                        <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#SoundOff" text="Music Off" textAlignment="RIGHT" />
+                        <Button mnemonicParsing="false" onAction="#SoundOn" prefWidth="97.0" text="Music On" />
+                     </items>
+                  </SplitPane>
                </children>
             </GridPane>
          </bottom>
