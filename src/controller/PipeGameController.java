@@ -2,6 +2,7 @@ package controller;
 
 import model.PipeGameModel;
 import view.MainWindowController;
+import view.MazeDisplayer;
 
 import java.io.IOException;
 import java.util.Observable;
@@ -28,9 +29,8 @@ public class PipeGameController implements Observer {
             if(arg instanceof String){
                 if(arg.equals("Connect")){
                     view.notifyObservers();
-                }else if(arg.equals("update")){
+                }else if(arg.equals("update")) {
                     view.setConnect("We connected");
-
                 }
             }
             // send soltuion to view
@@ -39,10 +39,30 @@ public class PipeGameController implements Observer {
             if(arg instanceof String){
                 if(((String)arg).equals("Connect")){
                     try {
-                        model.serverConnection(view.getIp(),Integer.parseInt(view.getPort()));
+                        model.PipeGameModel(view.getIp(),Integer.parseInt(view.getPort()));
+
+//                        File xmlFile=new File("./resources/connection.xml");
+//                        GameStatus connection=new GameStatus();
+//                        connection.set_ip(view.getIp());
+//                        connection.set_port(Integer.parseInt(view.getPort()));
+//                        JAXB.ConvertObjectToXML(xmlFile, connection);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                }
+                else if(((String)arg).equals("Solve")){
+//                    try {
+////                        File xmlFile=new File("./resources/connection.xml");
+////                        GameStatus connection = JAXB.ConvertXMLToObject(xmlFile, GameStatus.class);
+                        MazeDisplayer board = view.getMazeDisplayer();
+                    try {
+                        model.solve(board);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
         }

@@ -1,14 +1,8 @@
 package view;
 
 import controller.PipeGameController;
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -22,11 +16,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.net.URL;
-import java.sql.Time;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 public class MainWindowController extends Observable implements Initializable {
@@ -59,7 +51,7 @@ public class MainWindowController extends Observable implements Initializable {
 
 
     void UpdateConnection() {
-        this._connect.setText(String.format("Connection Status: %s", connection));
+        this._connect.setText(String.format("GameStatus Status: %s", connection));
     }
 
     private long map(long x, long in_min, long in_max, long out_min, long out_max) {
@@ -99,11 +91,6 @@ public class MainWindowController extends Observable implements Initializable {
 
     }
 
-    public void solve() {
-        System.out.println("Start Pipe game");
-
-    }
-
     public void OpenFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Level");
@@ -117,11 +104,10 @@ public class MainWindowController extends Observable implements Initializable {
                     max = mazeData.get(i);
                 }
             }
-        } else {
+        }else{
             System.out.println("Not Found");
 
         }
-
     }
 
     public ArrayList<String> readMaze(File Maze) {
@@ -178,9 +164,6 @@ public class MainWindowController extends Observable implements Initializable {
         }else {
             System.out.println("Music still playing in the background");
         }
-
-
-
    }
 
     public void SoundOff(){
@@ -203,6 +186,14 @@ public class MainWindowController extends Observable implements Initializable {
             write.close();
         } catch (FileNotFoundException e){
             e.printStackTrace();
+        }
+    }
+
+    public void solveGame(){
+        System.out.println(_connect.getText());
+        if(_connect.getText().equals("GameStatus Status: We connected")){
+            setChanged();
+            notifyObservers("Solve");
         }
     }
 
@@ -239,4 +230,8 @@ public class MainWindowController extends Observable implements Initializable {
 //        long start = milliseconds;
     }
 
+
+    public MazeDisplayer getMazeDisplayer() {
+        return mazeDisplayer;
+    }
 }
