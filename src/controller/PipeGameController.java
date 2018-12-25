@@ -35,6 +35,7 @@ public class PipeGameController implements Observer {
                     view.setConnect("disconnected");
                 }
             }
+            
         }else if(o == view){
             // send level sol request to models
             if(arg instanceof String){
