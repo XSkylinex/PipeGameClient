@@ -51,7 +51,7 @@ public class MainWindowController extends Observable implements Initializable {
 
 
     void UpdateConnection() {
-        this._connect.setText(String.format("GameStatus Status: %s", connection));
+        this._connect.setText(String.format("Connection Status: %s", connection));
     }
 
     private long map(long x, long in_min, long in_max, long out_min, long out_max) {
@@ -61,7 +61,7 @@ public class MainWindowController extends Observable implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.controller = new PipeGameController(new PipeGameModel(), this);
-        timer();
+
         try {
             musicPokemon = new Music();
         } catch (UnsupportedAudioFileException e) {
@@ -104,6 +104,7 @@ public class MainWindowController extends Observable implements Initializable {
                     max = mazeData.get(i);
                 }
             }
+            timer();
         }else{
             System.out.println("Not Found");
 
@@ -191,7 +192,7 @@ public class MainWindowController extends Observable implements Initializable {
 
     public void solveGame(){
         System.out.println(_connect.getText());
-        if(_connect.getText().equals("GameStatus Status: We connected")){
+        if(_connect.getText().equals("Connection Status: We connected")){
             setChanged();
             notifyObservers("Solve");
         }
@@ -211,12 +212,8 @@ public class MainWindowController extends Observable implements Initializable {
                         TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 timeLabel.setText("Time: "+ hms);
-
-
-
             }
         };
-
         timer.start();
 
 
@@ -230,8 +227,12 @@ public class MainWindowController extends Observable implements Initializable {
 //        long start = milliseconds;
     }
 
-
     public MazeDisplayer getMazeDisplayer() {
         return mazeDisplayer;
     }
+
+    public void switchCall(int i,int j ,int time){
+        mazeDisplayer.switchCell(i,j,time);
+    }
+
 }

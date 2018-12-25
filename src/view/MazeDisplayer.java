@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MazeDisplayer extends Canvas{
-    private ArrayList<String> mazeData;
+    private ArrayList<String> mazeData = null;
     private String max = "";
     private String themeName ="1";
     public int flag =0;

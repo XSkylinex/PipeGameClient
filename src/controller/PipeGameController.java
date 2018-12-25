@@ -31,9 +31,10 @@ public class PipeGameController implements Observer {
                     view.notifyObservers();
                 }else if(arg.equals("update")) {
                     view.setConnect("We connected");
+                }else if(arg.equals("Error")){
+                    view.setConnect("disconnected");
                 }
             }
-            // send soltuion to view
         }else if(o == view){
             // send level sol request to models
             if(arg instanceof String){
@@ -56,6 +57,7 @@ public class PipeGameController implements Observer {
 ////                        GameStatus connection = JAXB.ConvertXMLToObject(xmlFile, GameStatus.class);
                         MazeDisplayer board = view.getMazeDisplayer();
                     try {
+                        //view.switchCell(1,5,3);
                         model.solve(board);
                     } catch (IOException e) {
                         e.printStackTrace();

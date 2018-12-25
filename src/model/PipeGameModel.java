@@ -3,13 +3,11 @@ package model;
 import controller.PipeGameController;
 import view.MazeDisplayer;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -38,22 +36,27 @@ public class PipeGameModel extends Observable {
     }
 
     public void solve(MazeDisplayer board) throws IOException {
-        if(theServer == null)
-        {
+        if(theServer == null) {
             System.err.println("never to be printed!!!!");
             throw new IOException("no connection established");
         }
-        if(theServer.isClosed())
-        {
+        if(theServer.isClosed()) {
             throw new IOException("server is close");
+        }
+        if(board.getMazeData().isEmpty()){
+            setChanged();
+            notifyObservers("Error");
+            throw new IOException("board is empty");
+
         }
         try {
             String line;
             PrintWriter out = new PrintWriter(theServer.getOutputStream());
             ArrayList data = board.getMazeData();
+
             int i = 0;
             while (i < data.size()) {
-                out.println(new String(String.valueOf(data.get(i))));
+                out.println(data.get(i));
                 ++i;
             }
             out.println("done");
@@ -63,6 +66,8 @@ public class PipeGameModel extends Observable {
                 int i2 = Integer.parseInt(line.split(",")[0]);
                 int j = Integer.parseInt(line.split(",")[1]);
                 int times = Integer.parseInt(line.split(",")[2]);
+                //setChanged();
+                //notifyObservers("switch");
                 board.switchCell(i2, j, times);
             }
             in.close();
@@ -79,5 +84,15 @@ public class PipeGameModel extends Observable {
 
         // when we the sol from sever we notify to our observer.
         this.notifyObservers("solution....");
+    }
+
+    private String[][] convertDvirBlagan(ArrayList Data){
+        String[][] array = new String[Data.size()][];
+        for (int i = 0; i < Data.size(); i++) {
+            ArrayList<String> row = (ArrayList<String>) Data.get(i);
+            array[i] = row.toArray(new String[row.size()]);
+        }
+        return array;
+
     }
 }
