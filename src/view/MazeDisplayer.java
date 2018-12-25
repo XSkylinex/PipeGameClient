@@ -197,7 +197,7 @@ public class MazeDisplayer extends Canvas{
                     }
                 }
             }
-            System.out.println("Redraw!!!");
+            //System.out.println("Redraw!!!");
             //graphicsContext.setFill(Color.RED);
 
         }

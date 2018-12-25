@@ -75,9 +75,9 @@ public class MainWindowController extends Observable implements Initializable {
         mazeDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             mazeDisplayer.requestFocus();
             int i = (int) map((long) e.getY(), 0, (long) mazeDisplayer.getHeight(), 0, (long) mazeDisplayer.getMazeData().size());
-            System.out.println(i);
+            //System.out.println(i);
             int j = (int) map((long) e.getX(), 0, (long) mazeDisplayer.getWidth(), 0, (long) mazeDisplayer.getMazeData().get(0).length());
-            System.out.println(j);
+            //System.out.println(j);
             mazeDisplayer.switchCell(i, j, time);
             points++;
             if (mazeDisplayer.flag == 1) {
@@ -85,6 +85,9 @@ public class MainWindowController extends Observable implements Initializable {
             }
             mazeDisplayer.flag = 0;
             this.score.setText("Moves: " + points);
+            DepthFirstSearch<Index> searcher=new DepthFirstSearch<>();
+            boolean isSolved = searcher.Search(new Maze(mazeData));
+            //System.out.println(isSolved);
         });
 
     }

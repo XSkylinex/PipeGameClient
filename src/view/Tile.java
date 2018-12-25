@@ -139,15 +139,6 @@ public class Tile {
         return directions;
     }
 
-    public int countRotations(){
-        if(this.ch == '|' || this.ch == '-'){
-            return 2;
-        }
-        if(this.ch == 's' || this.ch == 'g' || this.ch ==' '){
-            return 1;
-        }
-        return 4;
-    }
 
     public Direction isTilesNeighbors(Tile tile){ //If the tiles ​​are neighbors
         //if(this.row==tile.row && this.column == tile.column){
@@ -169,8 +160,58 @@ public class Tile {
     }
 
     public boolean isTilesAreConnect(Tile tile){ // Checks if tiles are connected
-        return this.getDirections().contains(this.isTilesNeighbors(tile))&&
-                tile.getDirections().contains(tile.isTilesNeighbors(this));
+        try {
+            int row1=this.getRow();
+            int col1=this.getColumn();
+            int row2=tile.getRow();
+            int col2=tile.getColumn();
+            if(row2==row1-1&&col2==col1)
+            {
+                if(this.getDirections().contains(Direction.up)
+                        &&tile.getDirections().contains(Direction.down))
+                {
+                    return true;
+                }
+            }
+            else if(row1==row2)
+            {
+                if(col2==col1-1)
+                {
+                    if(this.getDirections().contains(Direction.left)
+                            &&tile.getDirections().contains(Direction.right))
+                    {
+                        return true;
+                    }
+                }
+                else if(col2==col1)
+                {
+                    throw new Exception("Error get the same tiles");
+                }
+                else if(col1+1==col2)
+                {
+                    if(this.getDirections().contains(Direction.right)
+                            &&tile.getDirections().contains(Direction.left))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if(row1+1==row2&&col2==col1)
+            {
+                if(this.getDirections().contains(Direction.down)
+                        &&tile.getDirections().contains(Direction.up))
+                {
+                    return true;
+                }
+            }
+        }catch (Exception e) {
+            return false;
+        }
+        return false;
     }
 
     protected Tile clone(){ // create new instance

@@ -70,7 +70,7 @@ public class Maze implements Searchable<Index> {
     public Maze(ArrayList<String> arrayListMaze) {
         String[][] strings=new String[arrayListMaze.size()][];
         for (int i = 0; i < arrayListMaze.size(); i++) {
-            strings[i]=arrayListMaze.get(i).split(",");
+            strings[i]=arrayListMaze.get(i).split("");
         }
         this.d2arryMaze = new Tile[strings.length][(strings.length==0)?0:strings[0].length];
         for (int i = 0; i < this.d2arryMaze.length; i++) {
@@ -140,16 +140,69 @@ public class Maze implements Searchable<Index> {
 
     @Override
     public State<Index> getInitialState() {
+        try {
+            Tile start = getStart();
+            Index index=new Index();
+            index.row=start.getRow();
+            index.col=start.getColumn();
+            return new State<>(index);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public Collection<State<Index>> getAllPossibleStates(State<Index> s) {
-        return null;
+        Collection<State<Index>> stateCollection=new ArrayList<>();
+        Index index = s.getState();
+        Tile tile = this.d2arryMaze[index.row][index.col];
+        Collection<Direction> directions = tile.getDirections();
+        //System.out.println(Arrays.deepToString(this.d2arryMaze));
+        //System.out.println("directions: "+directions.toString());
+        for (Direction direction : directions) {
+            try {
+                //System.out.println(direction.toString());
+                Tile tile1 = null;
+                if (direction == Direction.up) {
+                    tile1 = this.d2arryMaze[index.row - 1][index.col];
+                }
+                if (direction == Direction.down) {
+                    tile1 = this.d2arryMaze[index.row + 1][index.col];
+                }
+                if (direction == Direction.left) {
+                    tile1 = this.d2arryMaze[index.row][index.col-1];
+
+                }
+                if (direction == Direction.right) {
+                    tile1 = this.d2arryMaze[index.row][index.col+1];
+
+                }
+                assert tile1 != null;
+                //System.out.println(tile1.getRow()+","+tile1.getColumn());
+                if (tile.isTilesAreConnect(tile1)) {
+                    Index index1 = new Index();
+                    index1.row = tile1.getRow();
+                    index1.col = tile1.getColumn();
+                    stateCollection.add(new State<>(index1));
+                }
+            }catch (Exception e){
+                //e.printStackTrace();
+            }
+        }
+        //System.out.println("stateCollection:"+stateCollection.toString());
+        return stateCollection;
     }
 
     @Override
     public Boolean IsGoalState(State<Index> s) {
+        try {
+            Index index = s.getState();
+            Tile tile = this.d2arryMaze[index.row][index.col];
+            return tile.isGoal();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
