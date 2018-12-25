@@ -17,15 +17,10 @@ public class PipeGameModel extends Observable {
     private Socket theServer = null;
 
     // connection method....
-    public void PipeGameModel(String ip, int port) throws IOException {
+    public void connectToServer(String ip, int port) throws IOException {
 
         System.out.println("Creating socket to '" + ip + "' on port " + port);
         theServer = new Socket(ip, port);
-        if(theServer == null)
-        {
-            System.err.println("never to be printed!!!!");
-            throw new IOException("no connection astablse");
-        }
         if(theServer.isClosed())
         {
             throw new IOException("server is close");
@@ -50,49 +45,55 @@ public class PipeGameModel extends Observable {
 
         }
         try {
-            String line;
             PrintWriter out = new PrintWriter(theServer.getOutputStream());
-            ArrayList data = board.getMazeData();
+            BufferedReader in = new BufferedReader(new InputStreamReader(theServer.getInputStream()));
+            ArrayList<String> data = board.getMazeData();
 
-            int i = 0;
-            while (i < data.size()) {
-                out.println(data.get(i));
-                ++i;
+
+            for(String l : data) {
+                out.println(l);
+                System.out.println(l);
             }
             out.println("done");
             out.flush();
-            BufferedReader in = new BufferedReader(new InputStreamReader(theServer.getInputStream()));
-            while (!(line = in.readLine()).equals("done")) {
-                int i2 = Integer.parseInt(line.split(",")[0]);
-                int j = Integer.parseInt(line.split(",")[1]);
-                int times = Integer.parseInt(line.split(",")[2]);
-                //setChanged();
-                //notifyObservers("switch");
-                board.switchCell(i2, j, times);
-            }
-            in.close();
-            out.close();
-            theServer.close();
+
+            new Thread(()->{
+                while(!Thread.currentThread().isInterrupted()) {
+                    try {
+                        String _line;
+                        while (!(_line = in.readLine()).equals("done")) {
+                            int i2 = Integer.parseInt(_line.split(",")[0]);
+                            int j = Integer.parseInt(_line.split(",")[1]);
+                            int times = Integer.parseInt(_line.split(",")[2]);
+                            board.switchCell(i2, j, times);
+                            Thread.sleep(100);
+                        }
+                        Thread.currentThread().interrupt();
+                    }catch(InterruptedException | IOException ignored){}
+                }
+            }).start();
+//            in.close();
+//            out.close();
+//            theServer.close();
         }
-        catch (IOException e) {
-            //JOptionPane.showMessageDialog(board, e.getMessage());
-        //} catch (UnknownHostException e) {
-       //     e.printStackTrace();
-       // } catch (IOException e) {
-       //     e.printStackTrace();
+        catch (IOException ignored) {
         }
 
         // when we the sol from sever we notify to our observer.
         this.notifyObservers("solution....");
     }
 
-    private String[][] convertDvirBlagan(ArrayList Data){
-        String[][] array = new String[Data.size()][];
-        for (int i = 0; i < Data.size(); i++) {
-            ArrayList<String> row = (ArrayList<String>) Data.get(i);
-            array[i] = row.toArray(new String[row.size()]);
+    public void disconnectFromServer() throws IOException{
+        if(theServer.isClosed()) {
+            throw new IOException("server is close");
         }
-        return array;
-
+        PrintWriter out = new PrintWriter(theServer.getOutputStream());
+        BufferedReader in = new BufferedReader(new InputStreamReader(theServer.getInputStream()));
+        in.close();
+        out.close();
+        theServer.close();
     }
+
+
+
 }

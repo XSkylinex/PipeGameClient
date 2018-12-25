@@ -60,15 +60,13 @@ public class MainWindowController extends Observable implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this._ip.setText("localhost");
+        this._port.setText("6400");
         this.controller = new PipeGameController(new PipeGameModel(), this);
 
         try {
             musicPokemon = new Music();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
         this.score.setText("Moves: " + points);

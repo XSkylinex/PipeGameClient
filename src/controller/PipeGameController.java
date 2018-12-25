@@ -19,10 +19,6 @@ public class PipeGameController implements Observer {
         view.addObserver(this);
     }
 
-//    public void solve(){
-//        model.solve();
-//    }
-
     @Override
     public void update(Observable o, Object arg) {
         if(o == model){
@@ -35,13 +31,13 @@ public class PipeGameController implements Observer {
                     view.setConnect("disconnected");
                 }
             }
-            
+
         }else if(o == view){
             // send level sol request to models
             if(arg instanceof String){
                 if(((String)arg).equals("Connect")){
                     try {
-                        model.PipeGameModel(view.getIp(),Integer.parseInt(view.getPort()));
+                        model.connectToServer(view.getIp(),Integer.parseInt(view.getPort()));
 
 //                        File xmlFile=new File("./resources/connection.xml");
 //                        GameStatus connection=new GameStatus();

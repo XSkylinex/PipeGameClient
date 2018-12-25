@@ -15,40 +15,41 @@ public class MazeDisplayer extends Canvas{
     public int flag =0;
 
     public void switchCell(int i, int j, int times) {
-        int t = -1;
+        int t = 0;
         String fix;
-        char letter = this.mazeData.get(i).charAt(j);
         while (t < times) {
-            switch (letter) {
-                case '-': {
-                    fix = dvirStringFix(i,j,'|');
-                    mazeData.set(i,fix);
-                    break;
-                }
-                case '|': {
+            switch (this.mazeData.get(i).charAt(j)) {
+
+                case '|':
                     fix = dvirStringFix(i,j,'-');
                     mazeData.set(i,fix);
                     break;
-                }
-                case '7': {
+
+                case '-':
+                    fix = dvirStringFix(i,j,'|');
+                    mazeData.set(i,fix);
+                    break;
+
+                case 'F':
+                    fix = dvirStringFix(i,j,'7');
+                    mazeData.set(i,fix);
+                    break;
+
+                case '7':
                     fix = dvirStringFix(i,j,'J');
                     mazeData.set(i,fix);
                     break;
-                }
-                case 'J': {
+
+                case 'J':
                     fix = dvirStringFix(i,j,'L');
                     mazeData.set(i,fix);
                     break;
-                }
-                case 'L': {
+
+                case 'L':
                     fix = dvirStringFix(i,j,'F');
                     mazeData.set(i,fix);
                     break;
-                }
-                case 'F': {
-                    fix = dvirStringFix(i,j,'7');
-                    mazeData.set(i,fix);
-                    break;                }
+
                 case 'g': {
                     flag = 1;
                 }
@@ -60,8 +61,7 @@ public class MazeDisplayer extends Canvas{
             if (t < times - 1) {
                 try {
                     Thread.sleep(100L);
-                }
-                catch (InterruptedException interruptedException) {
+                } catch (InterruptedException interruptedException) {
                     // empty catch block
                 }
             }
