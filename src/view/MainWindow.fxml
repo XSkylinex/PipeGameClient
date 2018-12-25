@@ -48,10 +48,10 @@
             </MenuBar>
          </top>
          <left>
-            <VBox prefHeight="515.0" prefWidth="112.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="515.0" prefWidth="112.0" style="-fx-background-color: #1199cc;" BorderPane.alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#OpenFile" prefHeight="36.0" prefWidth="137.0" text="Open File" wrapText="true" />
-                  <Button mnemonicParsing="false" onAction="#OpenFile" prefHeight="36.0" prefWidth="137.0" text="Check" wrapText="true" />
+                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="137.0" text="Check" wrapText="true" />
                   <Button mnemonicParsing="false" onAction="#solveGame" prefHeight="35.0" prefWidth="120.0" text="Solve" wrapText="true" />
                   <Button mnemonicParsing="false" onAction="#gameSave" prefHeight="43.0" prefWidth="118.0" text="Save Game" />
                   <Label fx:id="score" alignment="TOP_CENTER" contentDisplay="BOTTOM" text="Moves" textFill="#b21715">
@@ -65,7 +65,7 @@
              <MazeDisplayer fx:id="mazeDisplayer" height="513.0" width="575.0" BorderPane.alignment="CENTER" />
          </center>
          <bottom>
-            <GridPane prefHeight="121.0" prefWidth="687.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="121.0" prefWidth="687.0" style="-fx-background-color: #1199cc;" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="336.0" minWidth="10.0" prefWidth="265.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="569.0" minWidth="10.0" prefWidth="422.0" />
@@ -77,14 +77,17 @@
                   <RowConstraints maxHeight="72.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="_connect" text="Connection: %s" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <SplitPane dividerPositions="0.08520179372197309" prefHeight="200.0" prefWidth="343.0" GridPane.columnIndex="1">
+                  <Label fx:id="_connect" text="Connection: %s" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="25.0" />
+                     </font></Label>
+                  <SplitPane dividerPositions="0.08520179372197309" prefHeight="200.0" prefWidth="343.0" style="-fx-background-color: #1199cc;" GridPane.columnIndex="1">
                      <items>
                         <Label prefHeight="27.0" prefWidth="55.0" text="Ip" />
                         <TextField fx:id="_ip" prefHeight="27.0" prefWidth="284.0" />
                      </items>
                   </SplitPane>
-                  <SplitPane dividerPositions="0.08520179372197309" prefHeight="12.0" prefWidth="520.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <SplitPane dividerPositions="0.08520179372197309" prefHeight="12.0" prefWidth="520.0" style="-fx-background-color: #1199cc;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <items>
                         <Label prefHeight="27.0" prefWidth="71.0" text="Port" />
                         <TextField fx:id="_port" prefHeight="41.0" prefWidth="363.0" />
@@ -93,10 +96,10 @@
                   <Button mnemonicParsing="false" onAction="#connect" text="Connect!" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label fx:id="_time" prefHeight="21.0" prefWidth="234.0" text="Timer :" textFill="#ab2772">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="25.0" />
                      </font>
                   </Label>
-                  <SplitPane dividerPositions="0.311787072243346" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                  <SplitPane dividerPositions="0.311787072243346" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1199cc;" GridPane.rowIndex="3">
                      <items>
                         <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#SoundOff" text="Music Off" textAlignment="RIGHT" />
                         <Button mnemonicParsing="false" onAction="#SoundOn" prefWidth="97.0" text="Music On" />
