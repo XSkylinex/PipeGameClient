@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import controller.PipeGameController;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -39,6 +40,9 @@ public class MainWindowController extends Observable implements Initializable {
     private boolean isSolved;
     private FileChooser fileChooser;
     private File Maze;
+
+    //Controllers
+
 
     @FXML
     MazeDisplayer mazeDisplayer;
@@ -287,4 +291,8 @@ public class MainWindowController extends Observable implements Initializable {
         loadUI("About");
     }
 
+    @FXML
+    void helpPage(ActionEvent event){
+        loadUI("HelpPage");
+    }
 }

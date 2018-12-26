@@ -1,13 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Label text="Help Page" underline="true" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="43.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="1.First need to connect to server">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="Server ip: 127.0.0.1 And Server port 6400">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="2.Click on Connect! button">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="3.Need to see We Connected if not samthing wrong">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="4.Click Solve and you get best solution">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="More:" underline="true">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label text="1.You can also play alone">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="2.After you have finished you can check if you won/lose">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="By a Check button">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="Have Fun" textFill="#9c4e9a">
+               <font>
+                  <Font size="56.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
