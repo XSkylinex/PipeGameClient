@@ -1,11 +1,10 @@
-package view;
+package view.Algorithm;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class CommonSearcher<T> implements Searcher<T>{
+public abstract class CommonSearcher<T> implements Searcher<T> {
     protected Collection<State<T>> openList;
     public CommonSearcher(){ //create new search
         newSearch();

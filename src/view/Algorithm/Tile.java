@@ -1,4 +1,4 @@
-package view;
+package view.Algorithm;
 
 import java.util.ArrayList;
 import java.util.Collection;

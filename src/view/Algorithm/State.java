@@ -1,4 +1,4 @@
-package view;
+package view.Algorithm;
 
 public class State<T> implements Comparable<State<T>>{
 

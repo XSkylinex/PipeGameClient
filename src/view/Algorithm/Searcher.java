@@ -1,6 +1,6 @@
-package view;
+package view.Algorithm;
 
-import java.util.ArrayList;
+import view.Algorithm.Searchable;
 
 public interface Searcher<T>{
     // the search method

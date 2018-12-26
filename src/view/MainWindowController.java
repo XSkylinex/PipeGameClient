@@ -4,13 +4,18 @@ import controller.PipeGameController;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.PipeGameModel;
+import view.Algorithm.DepthFirstSearch;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -26,10 +31,14 @@ public class MainWindowController extends Observable implements Initializable {
     public String max = "";
     public ArrayList<String> mazeData = new ArrayList<String>();
     private int time = 1;
-    private int points = 0;
+
+    public int points = 0;
     private String connection = "disconnected";
     private Music musicPokemon;
     private int soundSafe = 0;
+    private boolean isSolved;
+    private FileChooser fileChooser;
+    private File Maze;
 
     @FXML
     MazeDisplayer mazeDisplayer;
@@ -79,6 +88,7 @@ public class MainWindowController extends Observable implements Initializable {
             int j = (int) map((long) e.getX(), 0, (long) mazeDisplayer.getWidth(), 0, (long) mazeDisplayer.getMazeData().get(0).length());
             //System.out.println(j);
             mazeDisplayer.switchCell(i, j, time);
+
             points++;
             if (mazeDisplayer.flag == 1) {
                 points--;
@@ -86,31 +96,46 @@ public class MainWindowController extends Observable implements Initializable {
             mazeDisplayer.flag = 0;
             this.score.setText("Moves: " + points);
             DepthFirstSearch<Index> searcher=new DepthFirstSearch<>();
-            boolean isSolved = searcher.Search(new Maze(mazeData));
-            //System.out.println(isSolved);
+            isSolved = searcher.Search(new Maze(mazeData));
+
         });
 
     }
 
     public void OpenFile() {
-        FileChooser fileChooser = new FileChooser();
+        fileChooser = new FileChooser();
         fileChooser.setTitle("Open Level");
         fileChooser.setInitialDirectory(new File("./resources"));
-        File Maze = fileChooser.showOpenDialog(null);
+        Maze = fileChooser.showOpenDialog(null);
         if (Maze != null) {
-            mazeData = readMaze(Maze);
-            mazeDisplayer.setMazeData(mazeData);
-            for (int i = 0; i < mazeData.size(); i++) {
-                if (mazeData.get(i).length() > max.length()) {
-                    max = mazeData.get(i);
-                }
-            }
-            timer();
+            fileMaker();
         }else{
             System.out.println("Not Found");
 
         }
     }
+
+    public void newGame(ActionEvent event) {
+        if(fileChooser == null) {
+            loadUI("NewGameError");
+        }else{
+            fileMaker();
+            points = 0;
+            this.score.setText("Moves: " + points);
+        }
+    }
+
+    private void fileMaker() {
+        mazeData = readMaze(Maze);
+        mazeDisplayer.setMazeData(mazeData);
+        for (int i = 0; i < mazeData.size(); i++) {
+            if (mazeData.get(i).length() > max.length()) {
+                max = mazeData.get(i);
+            }
+        }
+        timer();
+    }
+
 
     public ArrayList<String> readMaze(File Maze) {
         BufferedReader buff = null;
@@ -234,6 +259,32 @@ public class MainWindowController extends Observable implements Initializable {
 
     public void switchCall(int i,int j ,int time){
         mazeDisplayer.switchCell(i,j,time);
+    }
+
+    @FXML
+    void winnerPage(ActionEvent event) {
+        if (isSolved == true) {
+            loadUI("WinnerWindow");
+        }else{
+            loadUI("LosePage");
+        }
+    }
+
+    private void loadUI(String fxmlPage){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UI/"+fxmlPage+".fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void aboutPage(ActionEvent event ){
+        loadUI("About");
     }
 
 }

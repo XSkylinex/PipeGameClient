@@ -21,11 +21,9 @@
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" onAction="#newGame" text="New">
                   <items>
-                        <MenuItem mnemonicParsing="false" text="Start" />
-                        <MenuItem mnemonicParsing="false" onAction="#OpenFile" text="Open File" />
-                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="New" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Theme">
@@ -34,14 +32,9 @@
                     <MenuItem mnemonicParsing="false" onAction="#chooseTheme" text="Theme 2" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Levels">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Level Number -" />
-                  </items>
-                </Menu>
                   <Menu mnemonicParsing="false" text="Help">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#aboutPage" text="About" />
                      </items>
                   </Menu>
               </menus>
@@ -51,7 +44,7 @@
             <VBox prefHeight="515.0" prefWidth="112.0" style="-fx-background-color: #1199cc;" BorderPane.alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#OpenFile" prefHeight="36.0" prefWidth="137.0" text="Open File" wrapText="true" />
-                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="137.0" text="Check" wrapText="true" />
+                  <Button mnemonicParsing="false" onAction="#winnerPage" prefHeight="36.0" prefWidth="137.0" text="Check" wrapText="true" />
                   <Button mnemonicParsing="false" onAction="#solveGame" prefHeight="35.0" prefWidth="120.0" text="Solve" wrapText="true" />
                   <Button mnemonicParsing="false" onAction="#gameSave" prefHeight="43.0" prefWidth="118.0" text="Save Game" />
                   <Label fx:id="score" alignment="TOP_CENTER" contentDisplay="BOTTOM" text="Moves" textFill="#b21715">

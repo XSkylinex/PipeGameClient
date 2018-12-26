@@ -1,5 +1,10 @@
 package view;
 
+import view.Algorithm.Direction;
+import view.Algorithm.Searchable;
+import view.Algorithm.State;
+import view.Algorithm.Tile;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

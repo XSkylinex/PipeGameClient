@@ -5,17 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sun.audio.*;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.*;
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
-        primaryStage.setTitle("Pipe Game v0.9");
+        Parent root = FXMLLoader.load(getClass().getResource("UI/MainWindow.fxml"));
+        primaryStage.setTitle("Pipe Game v1.0");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
