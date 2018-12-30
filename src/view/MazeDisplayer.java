@@ -152,11 +152,17 @@ public class MazeDisplayer extends Canvas{
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+            Image back = null;
+            try {
+                back = new Image(new FileInputStream("./resources/back.jpeg"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
             GraphicsContext graphicsContext = getGraphicsContext2D();
             graphicsContext.clearRect(0,0,width,high);
 
             // draw background
-            graphicsContext.drawImage(imgend, 0, 0, getWidth(), getHeight());
+            graphicsContext.drawImage(back, 0, 0, getWidth(), getHeight());
 
             for (int i = 0;i<mazeData.size();i++)
             {

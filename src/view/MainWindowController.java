@@ -142,6 +142,7 @@ public class MainWindowController extends Observable implements Initializable {
 
 
     public ArrayList<String> readMaze(File Maze) {
+        points = 0;
         BufferedReader buff = null;
         try {
             buff = new BufferedReader(new FileReader(Maze));
@@ -149,12 +150,21 @@ public class MainWindowController extends Observable implements Initializable {
             e.printStackTrace();
         }
         String streader;
+        int i =0;
         ArrayList<String> gameboard = new ArrayList<>();
         try {
             streader = buff.readLine();
             while (streader != null) {
+                i++;
                 gameboard.add(streader);
                 streader = buff.readLine();
+            }
+            if(!(gameboard.get(--i).contains(Character.toString('g')))) {
+                String TimerAndPoints = gameboard.get(i);
+                String Timer = TimerAndPoints.substring(0, TimerAndPoints.indexOf(','));
+                //_time.setText(Timer);
+                points = Integer.parseInt(TimerAndPoints.substring(TimerAndPoints.indexOf(',') + 1));
+                gameboard.remove(i);
             }
             return gameboard;
         } catch (IOException e) {
@@ -213,6 +223,7 @@ public class MainWindowController extends Observable implements Initializable {
                 write.println(mazeData.get(i));
 
             }
+            write.println(_time.getText()+","+points);
             write.flush();
             write.close();
         } catch (FileNotFoundException e){
@@ -229,6 +240,7 @@ public class MainWindowController extends Observable implements Initializable {
     }
 
     public void timer(){
+
         long start = System.currentTimeMillis();
         Label timeLabel = this._time;
 
