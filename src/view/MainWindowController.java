@@ -32,7 +32,7 @@ public class MainWindowController extends Observable implements Initializable {
     public String max = "";
     public ArrayList<String> mazeData = new ArrayList<String>();
     private int time = 1;
-
+    public  String SavedTime = "Time :00:00:00";
     public int points = 0;
     private String connection = "disconnected";
     private Music musicPokemon;
@@ -143,6 +143,7 @@ public class MainWindowController extends Observable implements Initializable {
 
     public ArrayList<String> readMaze(File Maze) {
         points = 0;
+        SavedTime = "Time :00:00:00";
         BufferedReader buff = null;
         try {
             buff = new BufferedReader(new FileReader(Maze));
@@ -161,8 +162,7 @@ public class MainWindowController extends Observable implements Initializable {
             }
             if(!(gameboard.get(--i).contains(Character.toString('g')))) {
                 String TimerAndPoints = gameboard.get(i);
-                String Timer = TimerAndPoints.substring(0, TimerAndPoints.indexOf(','));
-                //_time.setText(Timer);
+                SavedTime = TimerAndPoints.substring(0, TimerAndPoints.indexOf(','));
                 points = Integer.parseInt(TimerAndPoints.substring(TimerAndPoints.indexOf(',') + 1));
                 gameboard.remove(i);
             }
@@ -248,12 +248,15 @@ public class MainWindowController extends Observable implements Initializable {
             @Override
             public void handle(long now) {
                 long n = System.currentTimeMillis();
-                long millis =  ((n - start));
-
+                String[] parts = SavedTime.split(":");
+                //long hours = Long.parseLong(parts[1])*3600000;
+                long minutes = Long.parseLong(parts[2])*60000;
+                long second = Long.parseLong(parts[3])*1000;
+                long millis= n - start+second+minutes;
                 String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                         TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-                timeLabel.setText("Time: "+ hms);
+                timeLabel.setText("Time: " + hms);
             }
         };
         timer.start();
@@ -266,7 +269,7 @@ public class MainWindowController extends Observable implements Initializable {
 //                        TimeUnit.MINUTES.toSeconds(Integer.parseInt(s[1]))
 //        );
 //
-//        long start = milliseconds;
+//        start = milliseconds;
     }
 
     public MazeDisplayer getMazeDisplayer() {
