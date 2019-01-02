@@ -1,6 +1,5 @@
 package view;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import controller.PipeGameController;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -16,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.PipeGameModel;
-import view.Algorithm.DepthFirstSearch;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -37,7 +35,6 @@ public class MainWindowController extends Observable implements Initializable {
     private String connection = "disconnected";
     private Music musicPokemon;
     private int soundSafe = 0;
-    private boolean isSolved;
     private FileChooser fileChooser;
     private File Maze;
 
@@ -99,9 +96,6 @@ public class MainWindowController extends Observable implements Initializable {
             }
             mazeDisplayer.flag = 0;
             this.score.setText("Moves: " + points);
-            DepthFirstSearch<Index> searcher=new DepthFirstSearch<>();
-            isSolved = searcher.Search(new Maze(mazeData));
-
         });
 
     }
@@ -280,14 +274,6 @@ public class MainWindowController extends Observable implements Initializable {
         mazeDisplayer.switchCell(i,j,time);
     }
 
-    @FXML
-    void winnerPage(ActionEvent event) {
-        if (isSolved == true) {
-            loadUI("WinnerWindow");
-        }else{
-            loadUI("LosePage");
-        }
-    }
 
     private void loadUI(String fxmlPage){
         try {
