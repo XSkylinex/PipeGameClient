@@ -218,4 +218,35 @@ public class MazeDisplayer extends Canvas{
         redraw();
     }
 
+
+    public void resize(double width, double height) {
+        super.setWidth(width);
+        super.setHeight(height);
+        redraw();
+    }
+
+    public boolean isResizable(){
+        return true;
+    }
+
+    public double minHeight(double width){
+        return 100;
+    }
+
+    public double maxHeight(double width) {
+        return 1200;
+    }
+
+    public double prefHeight(double width) {
+        return minHeight(width);
+    }
+
+    public double minWidth(double height) {
+        return 0;
+    }
+
+    public double maxWidth(double height) {
+        return 10000;
+    }
+
 }

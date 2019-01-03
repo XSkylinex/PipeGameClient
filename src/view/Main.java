@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("UI/MainWindow.fxml"));
         primaryStage.setTitle("Pipe Game v1.0");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(root,700,600));
         primaryStage.show();
     }
 

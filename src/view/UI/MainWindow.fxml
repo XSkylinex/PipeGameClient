@@ -17,7 +17,7 @@
 
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainWindowController">
    <children>
-      <BorderPane>
+      <BorderPane prefHeight="1080" prefWidth="2048">
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
