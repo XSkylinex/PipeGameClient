@@ -13,9 +13,8 @@ import java.util.Observable;
 
 public class PipeGameModel extends Observable {
     public PipeGameController controller;
-
     private Socket theServer = null;
-
+    //public static boolean alreadySolve = false;
     // connection method....
     public void connectToServer(String ip, int port) throws IOException {
 
@@ -29,7 +28,13 @@ public class PipeGameModel extends Observable {
         notifyObservers("update");
 
     }
-
+    public boolean mazeCheck(MazeDisplayer board) throws IOException
+    {
+        MazeDisplayer tBoard = new MazeDisplayer();
+        tBoard.setMazeData(board.getMazeData());
+        this.solve(tBoard);
+        return tBoard.getMazeData() == board.getMazeData();
+    }
     public void solve(MazeDisplayer board) throws IOException {
         if(theServer == null) {
             System.err.println("never to be printed!!!!");
