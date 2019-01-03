@@ -33,8 +33,8 @@ public class PipeGameModel extends Observable {
         MazeDisplayer tBoard = new MazeDisplayer();
         tBoard.setMazeData(board.getMazeData());
         this.solve(tBoard);
-        board.getMazeData().
-        return tBoard.getMazeData() == board.getMazeData();
+        //return false;
+        return tBoard.getMazeData().equals(board.getMazeData());
     }
     public void solve(MazeDisplayer board) throws IOException {
         if(theServer == null) {
