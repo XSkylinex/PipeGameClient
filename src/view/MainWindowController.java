@@ -37,6 +37,7 @@ public class MainWindowController extends Observable implements Initializable {
     private int soundSafe = 0;
     private FileChooser fileChooser;
     private File Maze;
+    private boolean checkMaze = false;
 
     //Controllers
 
@@ -58,6 +59,9 @@ public class MainWindowController extends Observable implements Initializable {
 
     @FXML
     Label _time;
+
+    @FXML
+    Label _check;
 
 
     void UpdateConnection() {
@@ -295,5 +299,22 @@ public class MainWindowController extends Observable implements Initializable {
     @FXML
     void helpPage(ActionEvent event){
         loadUI("HelpPage");
+    }
+
+    @FXML
+    void checkMaze(ActionEvent event){
+        setChanged();
+        notifyObservers("check");
+        if(this.checkMaze){
+            loadUI("WinnerWindow");
+            this.checkMaze = false;
+        }else{
+            loadUI("LosePage");
+        }
+
+    }
+
+    public void getFromModel(boolean check){
+        this.checkMaze = check;
     }
 }

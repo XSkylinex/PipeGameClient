@@ -46,6 +46,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#OpenFile" prefHeight="36.0" prefWidth="137.0" text="Open File" wrapText="true" />
                   <Button mnemonicParsing="false" onAction="#solveGame" prefHeight="35.0" prefWidth="120.0" text="Solve" wrapText="true" />
+                  <Button layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#checkMaze" prefHeight="35.0" prefWidth="120.0" text="Check" wrapText="true" />
                   <Button mnemonicParsing="false" onAction="#gameSave" prefHeight="43.0" prefWidth="118.0" text="Save Game" />
                   <Label fx:id="score" alignment="TOP_CENTER" contentDisplay="BOTTOM" text="Moves" textFill="#b21715">
                      <font>

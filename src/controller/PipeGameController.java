@@ -62,6 +62,13 @@ public class PipeGameController implements Observer {
 //                    } catch (IOException e) {
 //                        e.printStackTrace();
 //                    }
+                }else if(arg.equals("check")){
+                    try {
+                        boolean checkMaze = model.mazeCheck(view.getMazeDisplayer());
+                        view.getFromModel(checkMaze);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
