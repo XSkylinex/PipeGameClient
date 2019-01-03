@@ -28,13 +28,16 @@ public class PipeGameModel extends Observable {
         notifyObservers("update");
 
     }
-    public boolean mazeCheck(MazeDisplayer board) throws IOException
-    {
+    public boolean mazeCheck(MazeDisplayer board) throws IOException {
         MazeDisplayer tBoard = new MazeDisplayer();
         tBoard.setMazeData(board.getMazeData());
         this.solve(tBoard);
-        //return false;
-        return tBoard.getMazeData().equals(board.getMazeData());
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return tBoard.getMazeData() == board.getMazeData();
     }
     public void solve(MazeDisplayer board) throws IOException {
         if(theServer == null) {
@@ -58,7 +61,6 @@ public class PipeGameModel extends Observable {
 
             for(String l : data) {
                 out.println(l);
-                System.out.println(l);
             }
             out.println("done");
             out.flush();
